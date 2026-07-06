@@ -54,5 +54,24 @@
         <button onclick="alert('Accessing DigiVerse...')">ENTER</button>
     </div>
 
-</body>
+</body><script>
+    function enterDigiVerse() {
+        const gameTag = document.querySelector('input[type="text"]').value;
+        const passcode = document.querySelector('input[type="password"]').value;
+
+        // Basic check: Ensure they entered a name and a 6-digit code
+        if (gameTag.length > 0 && passcode.length === 6) {
+            // Success: Transition to the Welcome Screen
+            document.body.innerHTML = `
+                <div class="login-card">
+                    <h1>Welcome, ${gameTag}!</h1>
+                    <p>You have entered Prompt Slayer SA.</p>
+                    <button onclick="location.reload()">Start Level 1</button>
+                </div>
+            `;
+        } else {
+            alert("Please enter a valid Game Tag and a 6-digit passcode.");
+        }
+    }
+</script>
 </html>
