@@ -56,22 +56,33 @@
 
 </body><script>
     function enterDigiVerse() {
-        const gameTag = document.querySelector('input[type="text"]').value;
-        const passcode = document.querySelector('input[type="password"]').value;
+    const gameTag = document.querySelector('input[type="text"]').value;
+    const passcode = document.querySelector('input[type="password"]').value;
 
-        // Basic check: Ensure they entered a name and a 6-digit code
-        if (gameTag.length > 0 && passcode.length === 6) {
-            // Success: Transition to the Welcome Screen
-            document.body.innerHTML = `
-                <div class="login-card">
-                    <h1>Welcome, ${gameTag}!</h1>
-                    <p>You have entered Prompt Slayer SA.</p>
-                    <button onclick="location.reload()">Start Level 1</button>
+    if (gameTag.length > 0 && passcode.length === 6) {
+        // Updated Welcome Interface
+        document.body.innerHTML = `
+            <div class="login-card">
+                <h1>Welcome, ${gameTag}!</h1>
+                <p>You have entered the DigiVerse. Your mission is to master the art of prompting.</p>
+                <div style="margin: 20px 0; padding: 15px; background: #2a2a35; border-left: 4px solid #4a90e2;">
+                    <strong>Mission Brief:</strong><br>
+                    Level 1 consists of 5 stages. Each stage requires you to input specific keywords to unlock the path forward.
                 </div>
-            `;
-        } else {
-            alert("Please enter a valid Game Tag and a 6-digit passcode.");
-        }
+                <button onclick="startLevelOne()">BEGIN LEVEL 1</button>
+            </div>
+        `;
+    } else {
+        alert("Please enter a valid Game Tag and a 6-digit passcode.");
     }
-</script>
-</html>
+}
+
+function startLevelOne() {
+    // This will hold our future Level 1 logic (Option B)
+    document.body.innerHTML = `
+        <div class="login-card">
+            <h1>Level 1: Stage 1</h1>
+            <p>Input your first prompt to begin...</p>
+        </div>
+    `;
+}
