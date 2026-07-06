@@ -5,84 +5,65 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Prompt Slayer SA | Enter the DigiVerse</title>
     <style>
-        body {
-            background-color: #121212;
-            color: #e0e0e0;
-            font-family: 'Segoe UI', Tahoma, sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-        }
-        .login-card {
-            background-color: #1e1e26;
-            padding: 2rem;
-            border-radius: 12px;
-            text-align: center;
-            border: 1px solid #333;
-        }
-        input {
-            display: block;
-            margin: 10px auto;
-            padding: 10px;
-            background: #2a2a35;
-            border: 1px solid #444;
-            color: white;
-            border-radius: 5px;
-            width: 80%;
-        }
-        button {
-            background-color: #4a90e2;
-            color: white;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-weight: bold;
-            margin-top: 10px;
-        }
+        body { background-color: #121212; color: #e0e0e0; font-family: 'Segoe UI', Tahoma, sans-serif; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
+        #app { background-color: #1e1e26; padding: 2rem; border-radius: 12px; text-align: center; border: 1px solid #333; width: 80%; max-width: 800px; }
+        input { display: block; margin: 10px auto; padding: 10px; background: #2a2a35; border: 1px solid #555; color: white; width: 80%; }
+        button { padding: 10px 20px; background: #4a90e2; color: white; border: none; border-radius: 5px; cursor: pointer; margin-top: 10px; }
     </style>
 </head>
 <body>
 
-    <div class="login-card">
+    <div id="app">
         <h1>Prompt Slayer SA</h1>
         <p>Enter the DigiVerse</p>
-        <input type="text" placeholder="Enter Game Tag" aria-label="Game Tag">
-        <input type="password" placeholder="6-Digit Passcode" maxlength="6" aria-label="Passcode">
-        <button onclick="alert('Accessing DigiVerse...')">ENTER</button>
+        <input type="text" id="gameTag" placeholder="Enter Game Tag">
+        <input type="password" id="passcode" placeholder="6-Digit Passcode">
+        <button onclick="enterDigiVerse()">ENTER</button>
     </div>
 
-</body><script>
-    function enterDigiVerse() {
-    const gameTag = document.querySelector('input[type="text"]').value;
-    const passcode = document.querySelector('input[type="password"]').value;
+    <script>
+        function enterDigiVerse() {
+            const gameTag = document.getElementById('gameTag').value;
+            const passcode = document.getElementById('passcode').value;
 
-    if (gameTag.length > 0 && passcode.length === 6) {
-        // Updated Welcome Interface
-        document.body.innerHTML = `
-            <div class="login-card">
-                <h1>Welcome, ${gameTag}!</h1>
-                <p>You have entered the DigiVerse. Your mission is to master the art of prompting.</p>
-                <div style="margin: 20px 0; padding: 15px; background: #2a2a35; border-left: 4px solid #4a90e2;">
-                    <strong>Mission Brief:</strong><br>
-                    Level 1 consists of 5 stages. Each stage requires you to input specific keywords to unlock the path forward.
+            if (gameTag.length > 0 && passcode.length === 6) {
+                document.getElementById('app').innerHTML = `
+                    <h1>Welcome, ${gameTag}!</h1>
+                    <p>You have entered the DigiVerse. Your mission is to master the art of prompting.</p>
+                    <div style="margin: 20px 0; padding: 15px; background: #2a2a35; border-left: 4px solid #4a90e2; text-align: left;">
+                        <strong>Mission Brief:</strong><br>
+                        Level 1 consists of 5 stages. Each stage requires you to input specific keywords to unlock the path forward.
+                    </div>
+                    <button onclick="startLevelOne()">BEGIN LEVEL 1</button>
+                `;
+            } else {
+                alert("Please enter a valid Game Tag and a 6-digit passcode.");
+            }
+        }
+
+        function startLevelOne() {
+            document.getElementById('app').innerHTML = `
+                <div style="display: flex; gap: 20px; text-align: left;">
+                    <div style="flex: 1;">
+                        <h2>Level 1: Stage 1</h2>
+                        <p>Task: Describe the image on the right to recreate it.</p>
+                        <textarea id="promptInput" style="width: 100%; height: 150px; background: #2a2a35; color: white; border: 1px solid #555;"></textarea>
+                        <button onclick="submitPrompt()">SUBMIT PROMPT</button>
+                    </div>
+                    <div style="flex: 1; background: #000; padding: 20px; border-radius: 12px; border: 2px dashed #4a90e2; text-align: center;">
+                        <h3>Target Reference</h3>
+                        <div id="targetImage" style="height: 100px; background: #333; margin-bottom: 20px; display: flex; align-items: center; justify-content: center;">[Target Image]</div>
+                        <h3>Result</h3>
+                        <div id="generatedResult" style="height: 100px; background: #000; display: flex; align-items: center; justify-content: center;">Waiting...</div>
+                    </div>
                 </div>
-                <button onclick="startLevelOne()">BEGIN LEVEL 1</button>
-            </div>
-        `;
-    } else {
-        alert("Please enter a valid Game Tag and a 6-digit passcode.");
-    }
-}
+            `;
+        }
 
-function startLevelOne() {
-    // This will hold our future Level 1 logic (Option B)
-    document.body.innerHTML = `
-        <div class="login-card">
-            <h1>Level 1: Stage 1</h1>
-            <p>Input your first prompt to begin...</p>
-        </div>
-    `;
-}
+        function submitPrompt() {
+            const userPrompt = document.getElementById('promptInput').value;
+            document.getElementById('generatedResult').innerHTML = `<em>Generating... "${userPrompt}"</em>`;
+        }
+    </script>
+</body>
+</html>
